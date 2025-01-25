@@ -1,0 +1,89 @@
+<my-navigation-bar title="订单详情" bindnavigate="navigate"></my-navigation-bar>
+<view class="header">
+  <view class="pay-status" wx:if="{{order.status===1}}">
+    <view>订单待付款</view>
+    <view class="time">
+      <view class="minutes">
+        <view wx:if="{{remainingMinutes<10}}">0</view>{{remainingMinutes}}:
+      </view>
+      <view class="seconds">
+        <view wx:if="{{remainingSeconds<10}}">0</view>{{remainingSeconds}}
+      </view>
+    </view>
+    <view class="button" bind:tap="cancelOrder">取消订单</view>
+    <view class="button" bind:tap="payOrder">确认支付</view>
+  </view>
+  <view class="pay-status" wx:if="{{order.status===2}}">
+    <view>订单待接单</view>
+    <view class="button" bind:tap="urgeOrder">催单</view>
+  </view>
+  <view class="pay-status" wx:if="{{order.status===3}}">订单已接单</view>
+  <view class="pay-status" wx:if="{{order.status===4}}">订单派送中</view>
+  <view class="pay-status" wx:if="{{order.status===5}}">订单已完成</view>
+  <view class="pay-status" wx:if="{{order.status===6}}">
+    <view>订单已取消</view>
+    <view class="cancel-info">取消原因：{{order.cancelReason}}</view>
+    <view class="cancel-info">取消时间：{{order.cancelTime}}</view>
+  </view>
+  <view class="pay-status" wx:if="{{order.status===7}}">订单已退款</view>
+</view>
+<view class="order-info">
+  <view class="title">订单信息</view>
+  <view class="list">
+    <view>期望时间</view>
+    <view class="list-content" wx:if="{{order.deliveryStatus===1}}">立即配送</view>
+    <view class="list-content" wx:if="{{order.deliveryStatus===2}}">预约时间</view>
+  </view>
+  <view class="list">
+    <view>配送地址</view>
+    <view class="list-content">{{order.addressDetail}}</view>
+  </view>
+  <view class="list">
+    <view>收货人</view>
+    <view class="list-content">{{order.consignee}}</view>
+  </view>
+  <view class="list">
+    <view>电话</view>
+    <view class="list-content">{{order.phoneNumber}}</view>
+  </view>
+  <view class="list" wx:if="{{order.remark!==null&&order.remark!==''}}">
+    <view>备注信息</view>
+    <view class="list-content">{{order.remark}}</view>
+  </view>
+  <view class="list">
+    <view>餐具数量</view>
+    <view class="list-content">{{order.tablewareStatus}}</view>
+  </view>
+  <view class="list">
+    <view>支付方式</view>
+    <view class="list-content" wx:if="{{order.payMode===1}}">微信支付</view>
+    <view class="list-content" wx:if="{{order.payMode===2}}">支付宝支付</view>
+  </view>
+</view>
+<view class="order-info order-dish-info">
+  <view class="title">商品费用</view>
+  <view class="dish-list" wx:for="{{orderDetail}}">
+    <view class="dish-info">
+      <image src="{{item.image}}" mode="" />
+      <view class="info-content">
+        <view class="name">{{item.name}}</view>
+        <view class="bundle" wx:if="{{item.bundle!==null&&item.bundle!==''}}">{{item.bundle}}</view>
+        <view class="flavor" wx:if="{{item.flavor!==null&&item.flavor!==''}}">{{item.flavor}}</view>
+        <view class="num">×{{item.number}}</view>
+      </view>
+    </view>
+    <view class="amount">￥{{item.amount}}</view>
+  </view>
+  <view class="list">
+    <view>打包费</view>
+    <view class="list-content">￥{{order.packagingFee}}</view>
+  </view>
+  <view class="list">
+    <view>配送费</view>
+    <view class="list-content">￥{{order.deliveryFee}}</view>
+  </view>
+  <view class="list amount-list">
+    <view>总费用</view>
+    <view class="list-content">￥{{order.amount}}</view>
+  </view>
+</view>

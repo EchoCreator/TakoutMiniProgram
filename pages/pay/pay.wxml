@@ -1,0 +1,24 @@
+<my-navigation-bar title="支付订单" bindnavigate="navigate"></my-navigation-bar>
+<view class="pay-info">
+  <view class="time">支付剩余时间 
+      <view class="minutes">
+        <view wx:if="{{remainingMinutes<10}}">0</view>{{remainingMinutes}}:
+      </view>
+      <view class="seconds">
+        <view wx:if="{{remainingSeconds<10}}">0</view>{{remainingSeconds}}
+      </view>
+  </view>
+  <view class="amount">
+    ￥<view class="number">{{submitOrder.amount}}</view>
+  </view>
+  <view>订单号：{{submitOrder.orderNumber}}</view>
+  <view class="pay-mode" wx:if="{{submitOrder.payMode===1}}">
+    <image src="../../static/icon/weixin.png" mode="" />
+    <view>微信支付</view>
+  </view>
+  <view class="pay-mode" wx:if="{{submitOrder.payMode===2}}">
+    <image src="../../static/icon/alipay.png" mode="" />
+    <view>支付宝支付</view>
+  </view>
+</view>
+<view class="pay-button" bind:tap="payOrder">确认支付</view>

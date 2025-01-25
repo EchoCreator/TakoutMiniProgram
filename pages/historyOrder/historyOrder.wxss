@@ -1,0 +1,64 @@
+page{
+  background-color: #dbdbdb;
+  padding-bottom: 5rpx;
+}
+
+.order-list{
+  width: 95%;
+  margin: 20rpx auto;
+  padding: 30rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-list .order-info{
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-list .left{
+  width: 80%;
+}
+
+.order-list .left>view{
+  margin: 20rpx 0;
+}
+
+.order-list .left>view:first-child,
+.order-list .left>view:last-child{
+  margin: 0;
+}
+
+.order-list .left .order-number{
+  font-size: 26rpx;
+}
+
+.order-list .left .order-time{
+  font-size: 26rpx;
+  color: #8a8a8a;
+}
+
+.pay-status{
+  font-size: 26rpx;
+  color: #8a8a8a;
+}
+
+.button-group{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 30rpx
+}
+
+.button-group view{
+  margin-left: 20rpx;
+  background-color: #626aef;
+  color: #fff;
+  padding: 10rpx 15rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  font-size: 27rpx;
+}

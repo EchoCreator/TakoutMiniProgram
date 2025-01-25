@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "my-navigation-bar": "/components/my-navigation-bar/my-navigation-bar",
+    "address-form": "/components/address-form/address-form"
+  }
+}

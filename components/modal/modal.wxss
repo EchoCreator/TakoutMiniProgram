@@ -1,0 +1,140 @@
+.modal-mask {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 70%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.modal-container {
+  width: 90%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal {
+  width: 100%;
+  border-radius: 30rpx;
+  overflow: hidden;
+}
+
+.modal .header {
+  width: 100%;
+  height: 100rpx;
+  background-color: #e6e6e6;
+  font-size: 35rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal .list-container {
+  width: 100%;
+  background-color: #fff;
+  padding: 40rpx;
+  box-sizing: border-box;
+  max-height: 800rpx;
+  overflow-y: scroll;
+}
+
+.modal .list{
+  margin-top: 40rpx;
+  box-sizing: border-box;
+}
+
+.modal .list:first-child{
+  margin-top: 0;
+}
+
+.modal .list .list-name {
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.modal .list .tags {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 25rpx;
+  flex-flow: wrap;
+}
+
+.modal .list .tag {
+  height: 43rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+  background-color: #e6e6e6;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.modal .active-tag{
+  border: 1px solid #e6442f;
+  color: #e6442f;
+  background-color: #ecd7b2 !important;
+}
+
+.modal .bottom {
+  width: 100%;
+  height: 180rpx;
+  background-color: #e6e6e6;
+  padding: 30rpx 40rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal .bottom .selected-items {
+  font-size: 23rpx;
+  display: flex;
+  flex-flow: wrap;
+}
+
+.modal .bottom .selected-items view::after{
+  content: "、";
+}
+
+.modal .bottom .selected-items view:last-child::after{
+  content: "" !important;
+}
+
+.modal .bottom .price-button,
+.modal .bottom .price {
+  display: flex;
+  align-items: center;
+}
+
+.modal .bottom .price-button {
+  justify-content: space-between;
+}
+
+.modal .bottom .price view {
+  color: #e6442f;
+  font-size: 35rpx;
+}
+
+.modal .bottom image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.modal-container .close image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 20rpx;
+}

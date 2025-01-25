@@ -1,0 +1,64 @@
+.pay-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pay-info>view{
+  margin: 18rpx 0;
+}
+
+.pay-info .time{
+  display: flex;
+  align-items: center;
+}
+
+.pay-info .time>view{
+  display: flex;
+}
+
+.pay-info .time .minutes{
+  margin-left: 15rpx;
+}
+
+.pay-info .amount{
+  display: flex;
+  align-items: flex-end;
+}
+
+.pay-info .amount .number{
+  font-size: 50rpx;
+  font-weight: 800;
+  position: relative;
+  top: 6rpx;
+}
+
+.pay-mode{
+  display: flex;
+  align-items: center;
+}
+
+.pay-mode image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}
+
+.pay-button{
+  width: 90%;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background-color: #626aef;
+  color: #fff;
+  text-align: center;
+  line-height: 80rpx;
+  position: fixed;
+  bottom: 60rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}

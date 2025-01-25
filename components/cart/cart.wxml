@@ -1,0 +1,41 @@
+<view class="cart-mask" wx:if="{{detailVisible}}" bind:tap="close"></view>
+<view class="order-detail" wx:if="{{detailVisible}}">
+  <view class="order-header">
+    <view class="clear" bind:tap="clearCart">
+      <image src="../../static/icon/clear.png" mode="" />清空购物车
+    </view>
+  </view>
+  <view class="order-container">
+    <view class="order" wx:for="{{order}}">
+      <view class="order-left">
+        <image src="{{item.image}}" mode="" />
+        <view class="name-price">
+          <view class="name">{{item.name}}</view>
+          <view class="flavor-bundle">
+            <view wx:if="{{item.bundle!=null&&item.bundle.length>0}}">{{item.bundle}}</view>
+            <view wx:if="{{item.flavor!=null&&item.flavor.length>0}}">{{item.flavor}}</view>
+          </view>
+          <view class="price">￥{{item.amount}}</view>
+        </view>
+      </view>
+      <view class="number-button">
+        <image src="../../static/icon/delete-all-blue.png" mode="" data-id="{{item.id}}" data-num="{{item.number}}" bind:tap="reduceOrderNum" />
+        <view class="number">{{item.number}}</view>
+        <image src="../../static/icon/add-all-blue.png" mode="" data-id="{{item.id}}" data-num="{{item.number}}" bind:tap="addOrderNum" />
+      </view>
+    </view>
+  </view>
+</view>
+<view class="cart">
+  <view class="left" catch:tap="showDetail">
+    <view class="img-count">
+      <image src="../../static/icon/delivery-man.png" mode="" />
+      <view class="count {{order.length===0?'zero-count':''}}">{{order.length}}</view>
+    </view>
+    <view class="total-price">
+      <view class="dish-price">￥{{totalPrice}}</view>
+      <view class="delivery-price">预估另需配送费 ￥2元</view>
+    </view>
+  </view>
+  <view class="right {{order.length===0?'disabled-button':''}}" bind:tap="goToPay">去结算</view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/navigation-bar",
+    "modal": "/components/modal/modal",
+    "cart": "/components/cart/cart"
+  }
+}

@@ -1,0 +1,85 @@
+<!--index.wxml-->
+<view class="header">
+  <image class="bg" src="../../static/images/bg.jpg" mode="" />
+  <view class="user-profile" bind:tap="goToProfile">
+    <image src="../../static/icon/profile.png" alt="" />
+    <view>个人中心</view>
+  </view>
+  <view class="shop-info">
+    <view class="top">
+      <image class="logo" src="../../static/icon/logo-blue.png" mode="" />
+      <view class="top-info">
+        <view class="name-status">
+          <view class="name">暖心送</view>
+          <view class="status open" wx:if="{{shopStatus===1}}">营业中</view>
+          <view class="status close" wx:if="{{shopStatus!==1}}">休息中</view>
+        </view>
+        <view class="icon-info-container">
+          <view class="icon-info">
+            <image src="../../static/icon/distance.png" mode="" />
+            距离1.5KM
+          </view>
+          <view class="icon-info">
+            <image src="../../static/icon/cost.png" mode="" />
+            配送费2元
+          </view>
+          <view class="icon-info">
+            <image src="../../static/icon/time.png" mode="" />
+            预计时长30min
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="bottom">
+      <view class="bottom-info">
+        <view class="introduction">
+          暖心送，暖心更暖胃
+        </view>
+        <view class="address">
+          <image src="../../static/icon/address.png" mode="" />
+          南京市玄武区东南大学四牌楼校区
+        </view>
+      </view>
+      <image src="../../static/icon/phone.png" mode="" />
+    </view>
+  </view>
+</view>
+<view class="body">
+  <view class="tabs">
+    <view data-tabid="1" class="tab  {{activeTab===1?'active-tab':''}}" bind:tap="tabChange">点菜</view>
+    <view data-tabid="2" class="tab {{activeTab===2?'active-tab':''}}" bind:tap="tabChange">评价</view>
+  </view>
+  <view class="tabs-bar" style="left: {{tabsBarPosition}}rpx"></view>
+  <view class="tab-content" style="right: {{contentPosition}}%">
+    <view class="tab-content-body menu-content">
+      <view class="menu">
+        <view class="menu-item {{activeMenuId===item.id?'active-item':''}} {{activeMenuIndex===index+1?'active-item-before':''}} {{activeMenuIndex===index-1?'active-item-after':''}}" wx:for="{{category}}" wx:key="{{item.id}}" data-menuid="{{item.id}}" data-menuindex="{{index}}" bind:tap="menuChange">{{item.name}}</view>
+      </view>
+      <view class="dish">
+        <view class="dish-item" wx:if="{{item.status===1}}" wx:for="{{dishes}}" wx:key="{{item.id}}">
+          <image src="{{item.image}}" mode="" />
+          <view class="dish-info">
+            <view class="dish-name">{{item.name}}</view>
+            <view class="description">{{item.description}}</view>
+            <view class="sales">
+              <image src="../../static/icon/sales.png" mode="" />
+              月售 0
+            </view>
+            <view class="price-button">
+              <view class="price">￥{{item.price}}</view>
+              <button data-choose="true" data-dish="{{item}}" data-dishindex="{{index}}" class="choose {{shopStatus!==1?'disabled-button':''}}" wx:if="{{item.bundleDishList!==null||item.flavorList.length!==0}}" bind:tap="orderDish">选规格</button>
+              <image data-choose="false" data-dish="{{item}}" data-dishindex="{{index}}" class="add" src="../../static/icon/add-blue.png" mode="" wx:if="{{(item.bundleDishList===null||item.bundleDishList.length===0)&&(item.flavorList===null||item.flavorList.length===0)&&shopStatus===1}}" bind:tap="orderDish" />
+              <image data-choose="false" data-dish="{{item}}" data-dishindex="{{index}}" class="add" src="../../static/icon/add-grey.png" mode="" wx:if="{{(item.bundleDishList===null||item.bundleDishList.length===0)&&(item.flavorList===null||item.flavorList.length===0)&&shopStatus!==1}}" bind:tap="orderDish" />
+            </view>
+          </view>
+        </view>
+        <cart totalPrice="{{totalPrice}}" order="{{order}}" bindclearCart="clearCart" bindreduceOrderNum="reduceOrderNum" bindaddOrderNum="addOrderNum"></cart>
+      </view>
+    </view>
+    <view class="tab-content-body">222</view>
+  </view>
+</view>
+<view class="ball {{ballVisible===true?'active-ball':''}}" style="top: {{ballY}}px;">
+  <view class="ball-item"></view>
+</view>
+<modal visible="{{modalVisible}}" dish="{{selectedDish}}" bindaddDish2Order="addDish2Order"></modal>

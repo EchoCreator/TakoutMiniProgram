@@ -1,0 +1,40 @@
+<view wx:if="{{visible}}">
+  <view class="modal-mask" bind:tap="close"></view>
+  <view class="modal-container">
+    <view class="modal">
+      <view class="header">{{dish.name}}</view>
+      <view class="list-container">
+        <view class="list" wx:for="{{dish.bundleDishList}}" wx:if="dish.bundleDishList!==null">
+          <view class="list-name">{{item.name}}</view>
+          <view class="tags">
+            <view class="tag {{activeBundleIndex[index]===childindex?'active-tag':''}}" wx:for="{{item.value}}" wx:for-item="items" wx:for-index="childindex" data-tagsindex="{{index}}" data-tagindex="{{childindex}}" data-tagvalue="{{items}}" data-bundle="true" bind:tap="chooseTag">{{items}}</view>
+          </view>
+        </view>
+        <view class="list" wx:for="{{dish.flavorList}}" wx:if="dish.flavorList.length>0">
+          <view class="list-name">{{item.name}}</view>
+          <view class="tags">
+            <view class="tag {{activeFlavorIndex[index]===childindex?'active-tag':''}}" wx:if="{{item.name!=='忌口'}}" wx:for="{{item.value}}" wx:for-item="items" wx:for-index="childindex" data-tagsindex="{{index}}" data-tagindex="{{childindex}}" data-tagvalue="{{items}}" data-bundle="false" data-avoid="false" bind:tap="chooseTag">{{items}}</view>
+            <view class="tag {{selectedAvoidFlavor[childindex]===true?'active-tag':''}}" wx:if="{{item.name==='忌口'}}" wx:for="{{item.value}}" wx:for-item="items" wx:for-index="childindex" data-tagsindex="{{index}}" data-tagindex="{{childindex}}" data-tagsvalue="{{item.value}}" data-tagvalue="{{items}}" data-bundle="false" data-avoid="true" bind:tap="chooseTag">{{items}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="bottom">
+        <view class="selected-items">
+          已选规格：
+          <view wx:for="{{selectedBundle}}" wx:if="{{item!==''}}">{{item}}
+          </view>
+          <view wx:for="{{selectedFlavor}}" wx:if="{{item!==''}}">{{item}}
+          </view>
+        </view>
+        <view class="price-button">
+          <view class="price">总计 <view>￥{{dish.price}}</view>
+          </view>
+          <image src="../../static/icon/add-blue.png" mode="" bind:tap="addDish2Order" />
+        </view>
+      </view>
+    </view>
+    <view class="close">
+      <image src="../../static/icon/close.png" mode="" bind:tap="close" />
+    </view>
+  </view>
+</view>

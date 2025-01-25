@@ -1,0 +1,40 @@
+<my-navigation-bar title="选择收获地址"></my-navigation-bar>
+<view class="address">
+  <view class="address-list" wx:for="{{addressList}}">
+    <view class="address-container">
+      <view class="content">
+        <view class="province-city" wx:if="{{item.provinceName!=null||item.cityName!=null||item.districtName!=null}}">
+          <view wx:if="{{item.provinceName!=null}}">{{item.provinceName}}</view>
+          <view wx:if="{{item.cityName!=null}}">{{item.cityName}}</view>
+          <view wx:if="{{item.districtName!=null}}">{{item.districtName}}</view>
+        </view>
+        <view class="detail">
+          {{item.detail}}
+        </view>
+        <view class="user-info">
+          <view class="name">{{item.consignee}}</view>
+          <view class="gender" wx:if="{{item.gender===1}}">先生</view>
+          <view class="gender" wx:if="{{item.gender===2}}">女士</view>
+          <view class="phone">{{item.phoneNumber}}</view>
+          <view class="default" wx:if="{{item.isDefault===1}}">默认地址</view>
+        </view>
+      </view>
+      <view class="right-button">
+        <image src="../../static/icon/edit.png" mode="" bind:tap="showForm" data-address="{{item}}" />
+        <image src="../../static/icon/delete.png" mode="" bind:tap="deleteAddress" data-id="{{item.id}}" />
+      </view>
+    </view>
+    <view class="set-default">
+      <image data-item="{{item}}" bind:tap="selectAddress" src="../../static/icon/circle-blue.png" mode="" wx:if="{{item.id===orderAddress.id}}" />
+      <image data-item="{{item}}" bind:tap="selectAddress" src="../../static/icon/circle-grey.png" mode="" wx:if="{{item.id!==orderAddress.id}}" />
+      设置为收货地址
+    </view>
+    <view class="underline"></view>
+  </view>
+  <view class="empty" wx:if="{{addressList.length===0}}">
+    <image src="../../static/icon/empty.png" mode="" />
+    还没有任何地址信息
+  </view>
+  <view class="add-address" bind:tap="showForm">新增收货地址</view>
+</view>
+<address-form formVisible="{{formVisible}}" selectedAddress="{{selectedAddress}}" bindaddAddress="addAddress" bindeditAddress="editAddress"></address-form>

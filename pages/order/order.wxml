@@ -1,0 +1,139 @@
+<my-navigation-bar title="提交订单" bindnavigate="navigate"></my-navigation-bar>
+<view class="address">
+  <view class="content">
+    <view class="province-city" wx:if="{{orderAddress.provinceName!=null||orderAddress.cityName!=null||orderAddress.districtName!=null}}">
+      <view wx:if="{{orderAddress.provinceName!=null}}">{{orderAddress.provinceName}}</view>
+      <view wx:if="{{orderAddress.cityName!=null}}">{{orderAddress.cityName}}</view>
+      <view wx:if="{{orderAddress.districtName!=null}}">{{orderAddress.districtName}}</view>
+    </view>
+    <view class="detail">
+      {{orderAddress.detail}}
+    </view>
+    <view class="user-info">
+      <view class="name">{{orderAddress.consignee}}</view>
+      <view class="gender" wx:if="{{orderAddress.gender===1}}">先生</view>
+      <view class="gender" wx:if="{{orderAddress.gender===2}}">女士</view>
+      <view class="phone">{{orderAddress.phoneNumber}}</view>
+    </view>
+  </view>
+  <view class="more" bind:tap="selectAddress">
+    <image src="../../static/icon/right-blue.png" mode="" />
+  </view>
+</view>
+<view class="delivery-time">
+  <view class="{{deliveryStatus===1?'choose-button':''}}" data-status="1" bind:tap="chooseDeliveryStatus">立即配送</view>
+  <view class="{{deliveryStatus===2?'choose-button':''}}" data-status="2" bind:tap="chooseDeliveryStatus">预约配送</view>
+</view>
+<view class="order-list">
+  <view class="order" wx:for="{{order}}">
+    <view class="order-left">
+      <image src="{{item.image}}" mode="" />
+      <view class="order-info">
+        <view class="name">{{item.name}}</view>
+        <view class="flavor-bundle">
+          <view wx:if="{{item.bundle!=null&&item.bundle.length>0}}">{{item.bundle}}</view>
+          <view wx:if="{{item.flavor!=null&&item.flavor.length>0}}">{{item.flavor}}</view>
+        </view>
+        <view class="number">×{{item.number}}</view>
+      </view>
+    </view>
+    <view class="price">￥{{item.amount}}</view>
+  </view>
+  <view class="price-list">
+    <view>打包费</view>
+    <view>￥{{packagingFee}}</view>
+  </view>
+  <view class="price-list">
+    <view>用户配送费</view>
+    <view>￥{{deliveryFee}}</view>
+  </view>
+  <view class="underline"></view>
+  <view class="price-list amount-list">
+    <view>总计</view>
+    <view class="amount">￥{{amount}}</view>
+  </view>
+</view>
+
+<view class="other-list">
+  <view class="remark list">
+    <view>备注</view>
+    <view class="right-button" bind:tap="showModal" data-type="remark">
+      <view wx:if="{{remark===''||remark===null}}" style="color: #8a8a8a;">请填写您的要求</view>
+      <view wx:if="{{remark!==''&&remark!==null}}" style="max-width: 200rpx;overflow: hidden; text-overflow: ellipsis;">{{remark}}</view>
+      <image src="../../static/icon/right-blue.png" mode="" />
+    </view>
+  </view>
+  <view class="tableware list">
+    <view>餐具</view>
+    <view class="right-button" bind:tap="showModal" data-type="tableware">
+      <view wx:if="{{tablewareStatus===''}}" style="color: #8a8a8a;">未选择</view>
+      <view wx:if="{{tablewareStatus!==''}}">{{tablewareStatus}}</view>
+      <image src="../../static/icon/right-blue.png" mode="" />
+    </view>
+  </view>
+</view>
+
+<view class="other-list">
+  <view class="pay list">
+    <view>支付方式</view>
+    <view class="right-button" bind:tap="showModal" data-type="pay">
+      <view wx:if="{{payMode===-1}}" style="color: #8a8a8a;">未选择</view>
+      <view wx:if="{{payMode!==-1&&payMode===1}}">微信支付</view>
+      <view wx:if="{{payMode!==-1&&payMode===2}}">支付宝支付</view>
+      <image src="../../static/icon/right-blue.png" mode="" />
+    </view>
+  </view>
+</view>
+
+<view class="pay-button">
+  <view class="left">合计￥{{amount}}</view>
+  <view class="right" bind:tap="admitOrder">去支付</view>
+</view>
+
+<view class="order-mask" wx:if="{{remarkModalVisible||tablewareModalVisible||payModalVisible}}" bind:tap="closeModal"></view>
+
+<view class="remark-modal modal" wx:if="{{remarkModalVisible}}">
+  <view class="header">备注</view>
+  <view class="content">
+    <textarea value="{{remark}}" placeholder="请输入您的要求（最多50字）" maxlength="50" confirm-type="done" bindblur="remarkBlur" />
+  </view>
+  <view class="bottom">
+    <view class="cancel" bind:tap="closeModal">取消</view>
+    <view class="confirm" bind:tap="confirmRemark">确定</view>
+  </view>
+</view>
+
+<view class="tableware-modal modal" wx:if="{{tablewareModalVisible}}">
+  <view class="header">餐具</view>
+  <view class="bottom">
+    <view class="left-button {{needTableware===true?'choose-button':''}}" bind:tap="chooseTablewareStatus" data-need="true">需要餐具</view>
+    <view class="right-button {{needTableware===false?'choose-button':''}}" bind:tap="chooseTablewareStatus" data-need="false">
+      <view>无需餐具</view>
+      <view class="claims">
+        <image src="../../static/icon/environment.png" mode="" />
+        助力环保，减碳38g
+      </view>
+    </view>
+  </view>
+  <view class="bottom" wx:if="{{needTableware}}">
+    <view class="left-button {{tablewareNum===0?'choose-button':''}}" bind:tap="chooseTablewareNum" data-num="default">商家按餐量提供</view>
+    <view class="right-button choose-num {{tablewareNum>0?'choose-button':''}}" bind:tap="chooseTablewareNum">
+      <image src="../../static/icon/minus-black.png" mode="" bind:tap="minusTablewareNum" />
+      <view wx:if="{{tablewareNum===0}}">1份</view>
+      <view wx:if="{{tablewareNum!==0}}">{{tablewareNum}}份</view>
+      <image src="../../static/icon/add-black.png" mode="" bind:tap="addTablewareNum" />
+    </view>
+  </view>
+  <view class="confirm" bind:tap="confirmTablewareStatus">确定</view>
+</view>
+
+<view class="pay-modal modal" wx:if="{{payModalVisible}}">
+  <view class="header">支付方式</view>
+  <view class="bottom">
+    <view class="left-button {{choosePayMode===1?'choose-button':''}}" bind:tap="choosePayMode" data-type="weixin">微信支付</view>
+    <view class="right-button {{choosePayMode===2?'choose-button':''}}" bind:tap="choosePayMode">
+      支付宝支付
+    </view>
+  </view>
+  <view class="confirm" bind:tap="confirmPayMode">确定</view>
+</view>

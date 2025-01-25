@@ -1,0 +1,17 @@
+<my-navigation-bar title="个人中心" showAvatar="true" bindnavigate="navigate"></my-navigation-bar>
+<view class="list-container">
+  <view class="list" bind:tap="addressManage">
+    <view class="left">
+      <image src="../../static/icon/address.png" mode="" />
+      地址管理
+    </view>
+    <image src="../../static/icon/right.png" mode="" />
+  </view>
+  <view class="list" bind:tap="showHistoryOrder">
+    <view class="left">
+      <image src="../../static/icon/order.png" mode="" />
+      历史订单
+    </view>
+    <image src="../../static/icon/right.png" mode="" />
+  </view>
+</view>

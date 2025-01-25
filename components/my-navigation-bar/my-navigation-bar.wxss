@@ -1,0 +1,49 @@
+.navigation-bar{
+  width: 100%;
+  background-color: #626aef;
+  padding: 0 30rpx;
+  padding-bottom: 50rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navigation-bar .top{
+  position: relative;
+  top: 105rpx;
+}
+
+.navigation-bar .top .title{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navigation-bar image{
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.navigation-bar .title{
+  justify-self: center;
+  color: #fff;
+  font-size: 30rpx;
+}
+
+.navigation-bar .avatar{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-size: 30rpx;
+  color: #fff;
+  font-weight: 800;
+}
+
+.navigation-bar .avatar image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}

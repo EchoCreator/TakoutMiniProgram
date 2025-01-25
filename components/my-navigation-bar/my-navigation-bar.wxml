@@ -1,0 +1,12 @@
+<view class="navigation-bar" style="height: {{showAvatar===true?'350rpx':'200rpx'}}">
+  <view class="top">
+    <image src="../../static/icon/left.png" mode="" bind:tap="navigate" />
+    <view class="title">{{title}}</view>
+  </view>
+  <view class="avatar" wx:if="{{showAvatar}}">
+    <image wx:if="{{avatarUrl!==''}}" :src="avatarUrl" mode="" />
+    <image wx:if="{{avatarUrl===''}}" src="../../static/icon/avatar.png" mode="" />
+    <view wx:if="{{username!==''}}">{{username}}</view>
+    <view wx:if="{{username===''}}">微信用户</view>
+  </view>
+</view>
